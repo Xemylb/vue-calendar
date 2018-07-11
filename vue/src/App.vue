@@ -5,7 +5,6 @@
       <img src="./assets/logo.png">
       <router-view/>
     </main>
-
      <footerComponent/>
   </div>
 

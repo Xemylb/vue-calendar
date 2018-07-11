@@ -1,4 +1,5 @@
 <template>
+
     <footer class="text-muted footer bg-dark">
         <div class="container">
             <div class="d-flex justify-content-between">
@@ -12,8 +13,7 @@
 
 <script>
     export default {
-        name: "footer",
-        template: '<customFooter/>',
+        name: "my-footer",
         data(){
             return{
                 title: 'Footer'

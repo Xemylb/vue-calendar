@@ -1,23 +1,21 @@
 <template>
     <div class="container">
-        <button class="btn btn-danger" v-on:click= 'getPrevMonth()'>Назад</button>
+        <div class="row">
+            <div class="col-xs-12" v-for="event in events"> {{event}}</div>
+        </div>
+        <button class="btn btn-danger" v-on:click='getPrevMonth()'>Назад</button>
         {{month}}
-        <button class="btn btn-success" v-on:click = 'getNextMonth()'>Вперед</button>
-        <h2>{{days}}</h2>
+        <button class="btn btn-success" v-on:click='getNextMonth()'>Вперед</button>
+        <p>{{days}}</p>
         <h2></h2>
         <h2>{{year}}</h2>
         <h2>{{prevDays}}</h2>
         <h2>{{currentDate}}</h2>
         <div class="calendar">
-            <div v-for="day in daysNames" class="calendar__day calendar__day">
+            <div v-for="day in daysNames" class="calendar__day">
                 {{day}}
             </div>
-            <div v-for="n in prevDays" class="calendar__day calendar__day_prev">
-                {{n}}
-            </div>
-            <div v-for="day in days" class="calendar__day">
-                {{day}}
-            </div>
+            <calendar-day v-for="day in days" v-bind:dayData="day"  :key="day.key"></calendar-day>
         </div>
     </div>
 
@@ -27,13 +25,21 @@
     import App from '../app'
     import moment from 'moment'
     import 'moment/locale/ru'
+    import calendarDay from './day'
+
 
     export default {
         name: 'HelloWorld',
+        created(){
+            this.$store.dispatch('getEvents');
+            this.events = this.$store.getters.getEvents;
+        },
         mounted() {
+
             this.$moment.locale("RU");
             let now = new Date;
-            this.getCalendar(now);
+            this.currentDate = moment(now);
+            this.getCalendar(this.currentDate);
         },
         data() {
             return {
@@ -41,83 +47,74 @@
                 daysNames: ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'],
                 prevDays: [],
                 currentDate: '',
+                dateFormat: 'DD-MM-YYYY',
                 days: [],
                 month: '',
                 year: '',
-                events: [
-                    {
-                        date: '06-07-2018',
-                        name: 'Event1',
-                        text: 'Event texl lorem text lorem',
-                        time: '15:00'
-                    },
-                    {
-                        date: '06-07-2018',
-                        name: 'Event1',
-                        text: 'Event texl lorem text lorem',
-                        time: '18:00'
-                    },
-                    {
-                        date: '09-07-2018',
-                        name: 'Event1',
-                        text: 'Event texl lorem text lorem',
-                        time: '15:00'
-                    },
-                    {
-                        date: '15-07-2018',
-                        name: 'Event1',
-                        text: 'Event texl lorem text lorem',
-                        time: '15:00'
-                    }
-                ]
+                events: ''
             }
         },
         methods: {
+
             getPrevMonth() {
-                this.currentDate = moment(this.currentDate).subtract(1, 'months');
+                this.currentDate = moment(this.currentDate).subtract(1, 'month');
                 this.getCalendar(this.currentDate);
             },
             getNextMonth() {
-                this.currentDate = moment(this.currentDate).add(1, 'months');
+                this.currentDate = moment(this.currentDate).add(1, 'month');
                 this.getCalendar(this.currentDate);
             },
-            getDate(date) {
-                return moment(date).format('DD-MM-YYYY')
-                //return moment(date,'DD-MM-YYYY').add('2', 'M');
-            },
-            getCalendar(date){
-                this.currentDate = this.getDate(date);
-                this.days = [];
-                let day;
-                do{
-                    if (!day) {
-                         day = moment(this.currentDate).startOf('month');
-                    } else {
-                        day = moment(day).add(1, 'd');
-                    }
-                    this.days.push(this.getDate(day));
-                }
-                while(moment(day).format('DD') !==  moment(this.currentDate).endOf('month').format('DD'));
-
-                this.month = moment(this.currentDate).format('MMMM');
-                this.year = moment(this.currentDate).format('Y');
-                this.getPrevDays()
-            },
-            getPrevDays() {
-                this.prevDays = [];
-                var testDay;
+            getCalendar(date) {
+                let daysArr = [];
+                let timeDate;
+                let key = 0;
                 do {
-                    if (!testDay) {
-                        testDay = moment(this.currentDate).startOf('month').subtract(1, 'd');
+                    let day = {
+                        key: '' ,
+                        date: false,
+                        prevDay: false,
+                        events: []
+                    };
+                    if (!timeDate) {
+                        timeDate = moment(date).startOf('month');
                     } else {
-                        testDay = moment(testDay).subtract(1, 'd');
+                        timeDate = moment(timeDate).add(1, 'd');
                     }
-                    this.prevDays.unshift(moment(testDay).format('DD'));
+                    day.date = timeDate.format(this.dateFormat);
+                    day.key = key;
+                    daysArr.push(day);
+                    key++;
                 }
-                while (testDay.day() !== 1);
+                while (moment(timeDate).format('DD') !== moment(date).endOf('month').format('DD'));
+                this.month = moment(date).format('MMMM');
+                this.year = moment(date).format('Y');
+                this.getPrevDays(date, daysArr, key);
+            },
+            getPrevDays(date,daysArr, key) {
+                let timeDate;
+                do {
+                    let day = {
+                        key: '',
+                        date: '',
+                        prevDay: true,
+                        events: []
+                    };
+                    if (!timeDate) {
+                        timeDate = moment(date).startOf('month').subtract(1, 'd');
+                    } else {
+                        timeDate = moment(timeDate).subtract(1, 'd');
+                    }
+                    day.date = timeDate.format(this.dateFormat);
+                    day.key = timeDate.format('d');
+                    day.key = key;
+                    daysArr.unshift(day);
+                    key++;
+                }
+                while (timeDate.day() !== 1);
+                this.days = daysArr;
             }
         },
-        components: {App, moment},
+        components: {App, moment, calendarDay, },
     }
 </script>
 
@@ -126,22 +123,22 @@
     body
         background-color: red
 
-    h1
-        color: green
+        h1
+            color: green
 
-    .calendar
-        display: flex
-        align-items: stretch
-        align-content: center
-        justify-content: flex-start
-        flex-wrap: wrap
+        .calendar
+            display: flex
+            align-items: stretch
+            align-content: center
+            justify-content: flex-start
+            flex-wrap: wrap
 
-    .calendar__day
-        flex-basis: 14%
-        background-color: grey
-        border: 1px solid red
-        height: 100px
+        .calendar__day
+            flex-basis: 14%
+            background-color: grey
+            border: 1px solid red
+            height: 100px
 
-    .calendar__day_prev
-        background-color: antiquewhite
+        .calendar__day_prev
+            background-color: antiquewhite
 </style>
