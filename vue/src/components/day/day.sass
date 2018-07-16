@@ -1,0 +1,32 @@
+.calendar__day_prev
+  color: #cfcfcf
+  background-color: rgb(251, 250, 230)
+  &:hover
+    background-color: rgb(235, 226, 209)
+  .calendar__day-num
+    color: #cfcfcf
+
+.calendar__day-num
+  position: absolute
+  left: 5px
+  top: 5px
+  font-weight: 600
+
+.calendar__day-event
+  cursor: pointer
+  padding: 3px
+  color: #fff
+  background-color: #A24FC1
+  border-radius: 3px
+  margin-bottom: 5px
+  opacity: 0.9
+  transition: 0.3s opacity
+  &:hover
+    opacity: 1
+
+.calendar__day-event:nth-child(3n)
+  background-color: #00ad5d
+
+.calendar__day-event:nth-child(4n)
+  background-color: #0d7fb1
+

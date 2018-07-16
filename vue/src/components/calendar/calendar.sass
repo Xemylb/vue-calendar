@@ -1,0 +1,37 @@
+.calendar
+  min-height: 900px
+  display: flex
+  align-items: flex-start
+  align-content: flex-start
+  justify-content: flex-start
+  flex-wrap: wrap
+
+.calendar__day
+  overflow: hidden
+  position: relative
+  text-align: left
+  padding: 25px 0 0 20px
+  font-size: 12px
+  flex-basis: 14%
+  background-color: #fafafa
+  border-left: 1px solid #eee
+  border-bottom: 1px solid #eee
+  height: 120px
+  &:hover
+    background-color: #efefef
+
+.calendar__day:last-child, .calendar__day:nth-child(7n)
+  border-right: 1px solid #eee
+
+
+.calendar__day-header
+  text-align: center
+  border-top: 1px solid #eee
+  align-items: flex-end
+  font-size: 24px
+  height: auto
+  padding: 10px
+  background-color: #4489fe
+  color: #fff
+  &:hover
+    background-color: #3f74e4

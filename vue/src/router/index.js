@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import frontPage from '@/components/index'
+import frontPage from '@/components/calendar/index'
 
 Vue.use(Router)
 

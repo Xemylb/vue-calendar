@@ -1,0 +1,41 @@
+/*mixin*/
+=border-radius($radius)
+  -webkit-border-radius: $radius
+  -moz-border-radius:    $radius
+  border-radius:         $radius
+
+=box-shadow($shadow)
+  -webkit-box-shadow: $shadow
+  -moz-box-shadow:    $shadow
+  box-shadow:         $shadow
+
+=transition($elem, $delay)
+  -webkit-transition: $elem $delay
+  -moz-transition:    $elem $delay
+  transition:         $elem $delay
+
+=transform($transform)
+  transform: $transform
+  -webkit-transform: $transform
+  -moz-transform: $transform
+
+=animation($animation)
+  animation: $animation
+  -webkit-animation: $animation
+  -moz-animation: $animation
+
+=filter($filter)
+  -webkit-filter: $filter
+  filter: $filter
+
+=myCaption()
+  position: absolute
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+
+=calc($property, $expression)
+  #{$property}: -moz-calc(#{$expression})
+  #{$property}: -webkit-calc(#{$expression})
+  #{$property}: calc(#{$expression})
