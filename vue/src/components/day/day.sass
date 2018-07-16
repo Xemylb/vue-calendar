@@ -1,3 +1,24 @@
+@import "../../assets/sass/variable"
+@import "../../assets/sass/mixin"
+
+.calendar__day
+  overflow: hidden
+  position: relative
+  text-align: left
+  padding: 25px 0 0 20px
+  font-size: 12px
+  flex-basis: 14.28%
+  background-color: #fafafa
+  border-left: 1px solid $borderColor
+  border-bottom: 1px solid $borderColor
+  height: 120px
+  cursor: pointer
+  &:hover
+    background-color: #efefef
+
+.calendar__day:last-child, .calendar__day:nth-child(7n)
+  border-right: 1px solid #eee
+
 .calendar__day_prev
   color: #cfcfcf
   background-color: rgb(251, 250, 230)

@@ -1,32 +1,41 @@
+@import "../../assets/sass/variable"
+@import "../../assets/sass/mixin"
 .calendar
-  min-height: 900px
+  font-size: 16px
+
+.calendar__month
+  +calc('max-height', '100vh - 90px')
   display: flex
   align-items: flex-start
   align-content: flex-start
   justify-content: flex-start
   flex-wrap: wrap
 
-.calendar__day
-  overflow: hidden
-  position: relative
-  text-align: left
-  padding: 25px 0 0 20px
-  font-size: 12px
-  flex-basis: 14%
-  background-color: #fafafa
-  border-left: 1px solid #eee
-  border-bottom: 1px solid #eee
-  height: 120px
-  &:hover
-    background-color: #efefef
+.calendar__header
+  display: flex
+  justify-content: space-between
+  align-items: stretch
+  background-color: $white
+  padding: 10px
 
-.calendar__day:last-child, .calendar__day:nth-child(7n)
-  border-right: 1px solid #eee
+.calendar__control
+  display: flex
+  justify-content: flex-start
+  align-items: center
 
+.calendar__month-name
+  min-width: 150px
+  display: block
+  font-size: $eighteen-px
+  &:first-letter
+    text-transform: uppercase
 
 .calendar__day-header
   text-align: center
   border-top: 1px solid #eee
+  border-left: 1px solid $borderColor
+  border-bottom: 1px solid $borderColor
+  flex-basis: 14.28%
   align-items: flex-end
   font-size: 24px
   height: auto
@@ -35,3 +44,9 @@
   color: #fff
   &:hover
     background-color: #3f74e4
+
+.calendar__day-header:nth-child(7)
+  border-right: 1px solid #eee
+
+
+

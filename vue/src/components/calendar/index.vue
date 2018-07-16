@@ -1,10 +1,16 @@
 <template>
-    <div class="container">
-
-        <button class="btn btn-danger" v-on:click='getPrevMonth()'>Назад</button>
-        {{month}}
-        <button class="btn btn-success" v-on:click='getNextMonth()'>Вперед</button>
-        <div class="calendar">
+    <div class="container calendar">
+        <div class="calendar__header">
+            <div class="calendar__control">
+                <button class="btn btn-info" v-on:click='getPrevMonth()'><font-awesome-icon icon="angle-left" /></button>
+                <div class="calendar__month-name">{{month}} {{year}}</div>
+                <button class="btn btn-info" v-on:click='getNextMonth()'><font-awesome-icon icon="angle-right" /></button>
+            </div>
+            <div class="calendar__search">
+                <search></search>
+            </div>
+        </div>
+        <div class="calendar__month">
             <div v-for="day in daysNames" class="calendar__day calendar__day-header">
                 {{day}}
             </div>
@@ -19,6 +25,7 @@
     import moment from 'moment'
     import 'moment/locale/ru'
     import calendarDay from '../day/day'
+    import search from '../search/search'
 
 
     export default {
@@ -109,7 +116,7 @@
                 return daysArr;
             }
         },
-        components: {App, moment, calendarDay, },
+        components: {App, moment, calendarDay, search},
     }
 </script>
 

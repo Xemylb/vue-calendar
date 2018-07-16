@@ -6,10 +6,12 @@ import router from './router'
 import moment from 'moment-timezone'
 import BootstrapVue from 'bootstrap-vue'
 import events from './store/index'
-
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faSearch, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 Vue.use(BootstrapVue);
-
-
+library.add(faSearch, faAngleLeft, faAngleRight);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 Object.defineProperty(Vue.prototype, '$moment', {get(){return this.$root.moment}});
 
 Vue.config.productionTip = false;
