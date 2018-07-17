@@ -5,7 +5,7 @@ Vue.use(Vuex);
 const events = new Vuex.Store({
     state:{
         events:[],
-        lastID: 5
+        lastID: 6
     },
     getters:{
        getEvents(state){
@@ -20,43 +20,50 @@ const events = new Vuex.Store({
             state.events = [{
                 id: 0,
                 date: '04-07-2018',
-                title: 'Event1',
+                title: 'Придаться грустным воспоминаниям',
                 text: 'Event texl lorem text lorem',
                 time: '15:00'
             },
                 {
                     id: 1,
                     date: '06-07-2018',
-                    title: 'Event2',
+                    title: 'Накормить радужного пони в подвале',
                     text: 'Event texl lorem text lorem',
                     time: '18:00'
                 },
                 {
                     id: 2,
                     date: '09-07-2018',
-                    title: 'Event3',
+                    title: 'Протрезветь до работы',
                     text: 'Event texl lorem text lorem',
                     time: '15:00'
                 },
                 {
                     id: 3,
                     date: '25-06-2018',
-                    title: 'Event4',
+                    title: 'Махнуть медавухи',
                     text: 'Event texl lorem text lorem',
                     time: '15:00'
                 },
                 {
                     id: 4,
                     date: '01-08-2018',
-                    title: 'Event4',
+                    title: 'Хлебнуть каньяку',
                     text: 'Event texl lorem text lorem',
                     time: '15:00'
                 },
                 {
                     id: 5,
                     date: '14-06-2018',
-                    title: 'Event4',
-                    text: 'Event texl lorem text lorem',
+                    title: 'Выпить пивка',
+                    text: 'Выпить пивка с друзяшками',
+                    time: '15:00'
+                },
+                {
+                    id: 6,
+                    date: '14-12-2019',
+                    title: 'Выпить в будущем',
+                    text: 'Выпить пивка с друзяшками',
                     time: '15:00'
                 }]
         },

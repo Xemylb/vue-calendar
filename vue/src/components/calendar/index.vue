@@ -5,9 +5,10 @@
                 <button class="btn btn-info" v-on:click='getPrevMonth()'><font-awesome-icon icon="angle-left" /></button>
                 <div class="calendar__month-name">{{month}} {{year}}</div>
                 <button class="btn btn-info" v-on:click='getNextMonth()'><font-awesome-icon icon="angle-right" /></button>
+                <div class="btn-success btn calendar__btn-now" @click="getCalendar(now)">Текущая дата</div>
             </div>
             <div class="calendar__search">
-                <search></search>
+                <search v-bind:dateFormat="dateFormat" @search="searchEvent"></search>
             </div>
         </div>
         <div class="calendar__month">
@@ -34,13 +35,10 @@
             this.$store.dispatch('getEvents');
             this.events = this.$store.getters.getEvents;
         },
-        componentUpdated(){
-            console.log(111111);
-        },
         mounted() {
             this.$moment.locale("RU");
-            let now = new Date;
-            this.currentDate = moment(now);
+            this.now = new Date;
+            this.currentDate = moment(this.now);
             this.getCalendar(this.currentDate);
         },
         data() {
@@ -52,11 +50,11 @@
                 days: [],
                 month: '',
                 year: '',
-                events: ''
+                events: '',
+                now:'',
             }
         },
         methods: {
-
             getPrevMonth() {
                 this.currentDate = moment(this.currentDate).subtract(1, 'month');
                 this.getCalendar(this.currentDate);
@@ -114,6 +112,10 @@
                     item.key = i;
                 });
                 return daysArr;
+            },
+            searchEvent(data){
+                let decodeDate = this.$moment(data.date, this.dateFormat);
+                this.getCalendar(decodeDate)
             }
         },
         components: {App, moment, calendarDay, search},

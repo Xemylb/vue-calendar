@@ -5,12 +5,39 @@
   justify-content: flex-start
   align-items: center
   outline: none
+  position: relative
 
 
 .calendar__search-input
   border-radius: 3px 0 0 3px
   padding: 0.375rem 0.75rem
   border: 1px solid $borderColor
+
 .calendar__search-submit
   border-top-left-radius: 0
   border-bottom-left-radius: 0
+
+.calendar__search-list
+  position: absolute
+  left: 0
+  top: 38px
+  width: 100%
+  height: auto
+  background-color: $white
+  z-index: 1
+  border: 1px solid $borderColor
+
+.calendar__search-item
+  cursor: pointer
+  text-align: left
+  font-size: 12px
+  border-bottom: 1px solid $borderColor
+  padding: 3px 10px
+  .search-item__name
+    margin-bottom: 0
+    font-weight: 700
+  .search-item__date
+    margin-bottom: 0
+    color: $blue
+  &:hover
+    background-color: #fafafa
