@@ -5,13 +5,19 @@ import App from './App'
 import router from './router'
 import moment from 'moment-timezone'
 import BootstrapVue from 'bootstrap-vue'
+import VueParticles from 'vue-particles'
+
 import events from './store/index'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSearch, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faAngleLeft, faAngleRight, faPlus} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 Vue.use(BootstrapVue);
-library.add(faSearch, faAngleLeft, faAngleRight);
+Vue.use(VueParticles);
+library.add(faSearch, faAngleLeft, faAngleRight, faPlus);
+
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+
 Object.defineProperty(Vue.prototype, '$moment', {get(){return this.$root.moment}});
 
 Vue.config.productionTip = false;

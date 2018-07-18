@@ -79,9 +79,13 @@ const events = new Vuex.Store({
                 }
             })
         },
-        addID(state){
+        addID(state) {
             state.lastID = ++state.lastID;
             return state.lastID;
+        },
+        delete(state,id){
+            let i  = state.events.map(elem => elem.id).indexOf(id);
+            state.events.splice(i,1);
         }
     },
     actions:{
@@ -97,6 +101,9 @@ const events = new Vuex.Store({
         },
         addID(context){
            context.commit('addID');
+        },
+        deleteEvent(context, id){
+            context.commit('delete', id);
         }
     }
 

@@ -2,10 +2,10 @@
     <div class="container calendar">
         <div class="calendar__header">
             <div class="calendar__control">
-                <button class="btn btn-info" v-on:click='getPrevMonth()'><font-awesome-icon icon="angle-left" /></button>
+                <button class="btn btn_blue-outline calendar__control-btn" v-on:click='getPrevMonth()'><font-awesome-icon icon="angle-left" /></button>
                 <div class="calendar__month-name">{{month}} {{year}}</div>
-                <button class="btn btn-info" v-on:click='getNextMonth()'><font-awesome-icon icon="angle-right" /></button>
-                <div class="btn-success btn calendar__btn-now" @click="getCalendar(now)">Текущая дата</div>
+                <button class="btn btn_blue-outline calendar__control-btn" v-on:click='getNextMonth()'><font-awesome-icon icon="angle-right" /></button>
+                <div class="btn_purple-outline btn calendar__btn-now" @click="getCalendar(now)">Текущая дата</div>
             </div>
             <div class="calendar__search">
                 <search v-bind:dateFormat="dateFormat" @search="searchEvent"></search>
@@ -27,7 +27,6 @@
     import 'moment/locale/ru'
     import calendarDay from '../day/day'
     import search from '../search/search'
-
 
     export default {
         name: 'Calendar',

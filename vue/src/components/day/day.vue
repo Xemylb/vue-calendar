@@ -4,7 +4,7 @@
         <div class="calendar__day-event"  v-for="event in events" @click="show('edit', event)">
             {{event.title}}
         </div>
-        <event-modal v-bind:modal-data="modalData" v-if="showModal" @close="close" @addEvent="addEvent" @editEvent="editEvent"></event-modal>
+        <event-modal v-bind:modal-data="modalData" v-if="showModal" @close="close" @addEvent="addEvent" @editEvent="editEvent" @deleteEvent="deleteEvent"></event-modal>
     </div>
 
 </template>
@@ -83,6 +83,14 @@
                         elem.text = event.text;
                     }
                 });
+            },
+            deleteEvent(id){
+                this.$store.dispatch('deleteEvent', id);
+                this.events.find((elem, i) => {
+                    if(elem.id === id){
+                        this.events.splice(i,1);
+                    }
+                })
             },
             show (eventType, data) {
                 this.modalData.eventType = eventType;
