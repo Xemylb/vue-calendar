@@ -4,7 +4,7 @@
   font-size: 16px
 
 .calendar__month
-  +calc('max-height', '100vh - 90px')
+  +calc('min-height', '100vh - 120px')
   display: flex
   align-items: flex-start
   align-content: flex-start
@@ -13,12 +13,14 @@
 
 .calendar__header
   display: flex
+  flex-wrap: wrap
   justify-content: space-between
   align-items: stretch
   background-color: $white
   padding: 10px
 
 .calendar__control
+  flex-wrap: wrap
   display: flex
   justify-content: flex-start
   align-items: center
@@ -56,4 +58,19 @@
   border-right: 1px solid #eee
 
 
+@media (max-width: 767px)
 
+  .calendar__header, .calendar__control
+    justify-content: center
+
+  .calendar__control
+    margin-bottom: 15px
+
+  .calendar__control-btn
+    padding: 0.7rem 1rem
+
+  .calendar__btn-now
+    margin: 0 10px 0 0
+
+  .calendar__day-header
+    font-size: $sixteen-px

@@ -2,12 +2,12 @@
     <div class="calendar__search">
         <input type="text" class="calendar__search-input" placeholder="Найти событие" v-model="search" v-on:keyup="filter">
         <button class="btn btn_blue-outline calendar__search-submit"><font-awesome-icon icon="search" /> </button>
-        <div class="calendar__search-list" v-show="filtredEvents">
-            <div class="calendar__search-item" v-for="event in filtredEvents" @click="searchEvent(event.date)">
-                <p class="search-item__name">{{event.title}}</p>
-                <p class="search-item__date">{{customizeDate(event.date)}}</p>
+            <div class="calendar__search-list" v-show="filtredEvents">
+                <div class="calendar__search-item" v-for="event in filtredEvents" @click="searchEvent(event.date)">
+                    <p class="search-item__name">{{event.title}}</p>
+                    <p class="search-item__date">{{customizeDate(event.date)}}</p>
+                </div>
             </div>
-        </div>
     </div>
 </template>
 
@@ -26,10 +26,6 @@
                 filtredEvents: ''
             }
         },
-        computed:{
-
-        },
-
         methods:{
             customizeDate(date){
                 return this.$moment(date, this.dateFormat).format("DD MMMM")

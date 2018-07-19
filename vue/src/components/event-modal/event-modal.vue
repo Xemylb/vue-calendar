@@ -10,8 +10,9 @@
 
                 <div class="modal__body" v-if="eventType === 'create'">
                     <div class="modal__control">
-                        <label><b>Название события</b></label>
+                        <label><b>Название события<span class="text_red">*</span></b></label>
                         <input v-model="title" type="text" class="modal__input modal__control-item">
+                        <p class="text_red modal__error" v-show="error">{{errorText}}</p>
                     </div>
                     <div class="modal__control">
                         <label><b>Описание события</b></label>
@@ -28,21 +29,28 @@
                         <p class="modal__control-text">{{text}}</p>
                     </div>
                     <div class="modal__control" v-show="eventOnEdit">
-                        <label><b>Название события</b></label>
-                        <input v-model="title" type="text" class="modal__input modal__control-item">
+                        <label><b>Название события<span class="text_red">*</span></b></label>
+                        <input v-model.trim="title" type="text" class="modal__input modal__control-item">
+                        <p class="text_red modal__error" v-show="error">{{errorText}}</p>
                     </div>
                     <div class="modal__control" v-show="eventOnEdit">
                         <label><b>Описание события</b></label>
-                        <textarea v-model="text"  class="modal__textarea modal__control-item"></textarea>
+                        <textarea v-model.trim="text" class="modal__textarea modal__control-item"></textarea>
                     </div>
                 </div>
                 <div class="modal__footer" v-if="eventType === 'create'">
                     <button class="btn btn_blue-outline modal__btn" @click.capture="addEvent">Создать событие</button>
                 </div>
                 <div class="modal__footer" v-else>
-                    <button class="btn btn_blue-outline modal__btn" @click.capture="eventOnEdit = !eventOnEdit" v-show="!eventOnEdit">Редактировать</button>
-                    <button class="btn btn_red-outline modal__btn" @click.capture="deleteEvent" v-show="!eventOnEdit">Удалить</button>
-                    <button class="btn btn_blue-outline modal__btn" @click.capture="editEvent" v-show="eventOnEdit">Сохранить</button>
+                    <button class="btn btn_blue-outline modal__btn" @click.capture="eventOnEdit = !eventOnEdit"
+                            v-show="!eventOnEdit">Редактировать
+                    </button>
+                    <button class="btn btn_red-outline modal__btn" @click.capture="deleteEvent" v-show="!eventOnEdit">
+                        Удалить
+                    </button>
+                    <button class="btn btn_blue-outline modal__btn" @click.capture="editEvent" v-show="eventOnEdit">
+                        Сохранить
+                    </button>
                 </div>
             </div>
         </div>
@@ -63,7 +71,9 @@
                 title: this.modalData.dayData.title,
                 text: this.modalData.dayData.text,
                 dateFormat: this.modalData.dateFormat,
-                eventOnEdit: false
+                eventOnEdit: false,
+                error: false,
+                errorText: 'Название не должно быть пустым'
             }
         },
         methods: {
@@ -79,27 +89,41 @@
             },
             addEvent: function () {
                 // генерируем событие 'remove' и передаём id элемента
-                this.$emit('addEvent', {
-                    title: this.title,
-                    text: this.text
-                });
-                this.close();
+                if (this.validate()) {
+                    this.$emit('addEvent', {
+                        title: this.title,
+                        text: this.text
+                    });
+                    this.close();
+                }
             },
             editEvent: function () {
-                this.eventOnEdit = !this.eventOnEdit;
-                this.$emit('editEvent', {
-                    id: this.id,
-                    title: this.title,
-                    text: this.text
-                });
+                if (this.validate()) {
+                    this.eventOnEdit = !this.eventOnEdit;
+                    this.$emit('editEvent', {
+                        id: this.id,
+                        title: this.title,
+                        text: this.text
+                    });
+                }
             },
             deleteEvent: function () {
                 this.close();
                 this.$emit('deleteEvent', this.id);
             },
             customizeDate(date) {
-                console.log(this.dateFormat);
                 return this.$moment(date, this.dateFormat).format("DD MMMM YYYY")
+            },
+            validate() {
+                if (!this.title) {
+                    this.error = true;
+                    setTimeout(() => {
+                        this.error = false;
+                    }, 2000);
+                    return false;
+                }
+                this.error = false;
+                return true
             }
         }
     }

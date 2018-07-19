@@ -13,7 +13,7 @@
   flex-direction: column
   position: absolute
   top: 125%
-  right: -200px
+  right: -175px
   z-index: 2
   width: 300px
   font-size: 14px
@@ -42,6 +42,7 @@
   cursor: pointer
   font-size: $sixteen-px
   +transition(transform, 0.3s)
+  z-index: 30
   &:hover
     +transform(rotate(45deg))
 
@@ -56,3 +57,9 @@
 .fast-create__submit
   font-size: 14px
 
+@media (max-width: 991px)
+  .fast-create__modal
+    right: 0
+  .fast-create__caret
+    left: inherit
+    right: 40px

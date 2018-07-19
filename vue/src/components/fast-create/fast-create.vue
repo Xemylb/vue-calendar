@@ -1,13 +1,16 @@
 <template>
     <div class="fast-create">
         <div class="btn_darkblue-outline btn fast-create__btn" @click="toggle">Быстрое создание</div>
-        <div class="fast-create__modal" v-show="show">
-            <span class="fast-create__caret"><font-awesome-icon icon="caret-up"/></span>
-            <span class="fast-create__close" @click="toggle"><font-awesome-icon icon="plus"/> </span>
-            <masked-input class="fast-create__event-date fast-create__input" v-model="date" placeholder-char="_" mask="11-11-1111" placeholder="Дата: 12-12-2018" />
-            <input type="text" class="fast-create__event-title fast-create__input" v-model="title" placeholder="Название события">
-            <button class="btn btn_darkblue fast-create__submit" @click="addEvent">Создать</button>
-        </div>
+        <transition name="fade">
+            <div class="fast-create__modal" v-show="show">
+                <span class="fast-create__caret"><font-awesome-icon icon="caret-up"/></span>
+                <span class="fast-create__close" @click="toggle"><font-awesome-icon icon="plus"/> </span>
+                <masked-input class="fast-create__event-date fast-create__input"  v-model.trim="date" placeholder-char="_" mask="11-11-1111" placeholder="Дата: 12-12-2018*"/>
+                <input type="text" class="fast-create__event-title fast-create__input" @keyup.enter="addEvent" v-model.trim="title" placeholder="Название события*" >
+                <button type="submit" class="btn btn_darkblue fast-create__submit" @click="addEvent">Создать</button>
+            </div>
+        </transition>
+
     </div>
 </template>
 

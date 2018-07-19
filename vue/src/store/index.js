@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+/* eslint-disable */
 Vue.use(Vuex);
 
 const events = new Vuex.Store({
@@ -18,12 +18,13 @@ const events = new Vuex.Store({
     },
     mutations: {
         getEvents(state) {
-            state.events = [{
-                id: 0,
-                date: '04-07-2018',
-                title: 'Придаться грустным воспоминаниям',
-                text: '',
-            },
+            state.events = [
+                {
+                    id: 0,
+                    date: '04-07-2018',
+                    title: 'Придаться грустным воспоминаниям',
+                    text: '',
+                },
                 {
                     id: 1,
                     date: '06-07-2018',
@@ -93,6 +94,5 @@ const events = new Vuex.Store({
             context.commit('delete', id);
         }
     }
-
 });
 export default events;

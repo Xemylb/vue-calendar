@@ -49,7 +49,6 @@
                         return event
                     }
                 })
-
             }
         },
         methods: {
@@ -94,7 +93,6 @@
             close () {
                 this.showModal = false
             }
-
         }
     }
 </script>
