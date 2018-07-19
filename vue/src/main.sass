@@ -47,10 +47,35 @@ body
   &:focus
     +box-shadow(none)
 
+
 .btn_purple-outline
   background-color: transparent
   color: $purple
   border: 1px solid $purple
+  +transition(all, 0.3s)
+  &:hover
+    background-color: $purple
+    border: 1px solid $purple
+    color: $white
+  &:focus
+    +box-shadow(none)
+
+.btn_darkblue-outline
+  background-color: transparent
+  color: $darkBlue
+  border: 1px solid $darkBlue
+  +transition(all, 0.3s)
+  &:hover
+    background-color: $darkBlue
+    border: 1px solid $darkBlue
+    color: $white
+  &:focus
+    +box-shadow(none)
+
+.btn_darkblue
+  background-color: $darkBlue
+  color: $white
+  border: 1px solid $blue
   +transition(all, 0.3s)
   &:hover
     background-color: $purple

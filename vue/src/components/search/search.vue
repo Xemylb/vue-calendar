@@ -5,7 +5,7 @@
         <div class="calendar__search-list" v-show="filtredEvents">
             <div class="calendar__search-item" v-for="event in filtredEvents" @click="searchEvent(event.date)">
                 <p class="search-item__name">{{event.title}}</p>
-                <p class="search-item__date">{{custumizeDate(event.date)}}</p>
+                <p class="search-item__date">{{customizeDate(event.date)}}</p>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
         },
 
         methods:{
-            custumizeDate(date){
+            customizeDate(date){
                 return this.$moment(date, this.dateFormat).format("DD MMMM")
             },
             filter(){

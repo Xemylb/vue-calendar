@@ -6,6 +6,7 @@
                 <div class="calendar__month-name">{{month}} {{year}}</div>
                 <button class="btn btn_blue-outline calendar__control-btn" v-on:click='getNextMonth()'><font-awesome-icon icon="angle-right" /></button>
                 <div class="btn_purple-outline btn calendar__btn-now" @click="getCalendar(now)">Текущая дата</div>
+                <fast-create></fast-create>
             </div>
             <div class="calendar__search">
                 <search v-bind:dateFormat="dateFormat" @search="searchEvent"></search>
@@ -15,7 +16,7 @@
             <div v-for="day in daysNames" class="calendar__day calendar__day-header">
                 {{day}}
             </div>
-            <calendar-day v-for="day in days" v-bind:day-data="day"  :key="day.key + day.date"></calendar-day>
+            <calendar-day v-for="day in days" v-bind:day-data="day" v-bind:date-format="dateFormat"  :key="day.key + day.date"></calendar-day>
         </div>
     </div>
 
@@ -27,12 +28,14 @@
     import 'moment/locale/ru'
     import calendarDay from '../day/day'
     import search from '../search/search'
+    import fastCreate from '../fast-create/fast-create'
+    import maskedInput from 'vue-masked-input'
 
     export default {
         name: 'Calendar',
+        components: {App, moment, calendarDay, search, maskedInput, fastCreate},
         created(){
             this.$store.dispatch('getEvents');
-            this.events = this.$store.getters.getEvents;
         },
         mounted() {
             this.$moment.locale("RU");
@@ -49,7 +52,6 @@
                 days: [],
                 month: '',
                 year: '',
-                events: '',
                 now:'',
             }
         },
@@ -115,9 +117,10 @@
             searchEvent(data){
                 let decodeDate = this.$moment(data.date, this.dateFormat);
                 this.getCalendar(decodeDate)
-            }
+            },
+
         },
-        components: {App, moment, calendarDay, search},
+
     }
 </script>
 

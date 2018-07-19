@@ -1,7 +1,7 @@
 <template>
     <div class="calendar__day" v-bind:class="{ calendar__day_prev: prevDay}" @click.self="show('create')">
          <div class="calendar__day-num">{{dateDay}}</div>
-        <div class="calendar__day-event"  v-for="event in events" @click="show('edit', event)">
+        <div class="calendar__day-event"  v-for="event in dayEvents" @click="show('edit', event)">
             {{event.title}}
         </div>
         <event-modal v-bind:modal-data="modalData" v-if="showModal" @close="close" @addEvent="addEvent" @editEvent="editEvent" @deleteEvent="deleteEvent"></event-modal>
@@ -13,18 +13,16 @@
     import eventModal from '../event-modal/event-modal'
     export default {
         name: "calendarDay",
-        props: ['dayData'],
+        props: ['dayData', 'dateFormat'],
         components: {
             eventModal
         },
         created(){
-            //console.log(this.dayData);
+            this.getData();
         },
         mounted(){
-            this.getTestData();
+            this.getData();
             this.dateDay = this.$moment(this.date, 'DD-MM-YYYY').format('DD')
-        },
-        updated(){
         },
         data() {
             return {
@@ -35,37 +33,37 @@
                         title: '',
                         text: '',
                     },
-                    date: this.dayData.date
+                    date: this.dayData.date,
+                    dateFormat: this.dateFormat
                 },
                 showModal: false,
                 date: this.dayData.date,
                 dateDay: '',
                 prevDay: this.dayData.prevDay,
-                events: ''
+                events: '',
             }},
-        methods: {
-            getTestData(){
-                let events = this.$store.getters.getEvents;
-                let dayDate = this.date;
-                this.events = events.filter(function (item) {
-                    if(item.date == dayDate){
-                        return item
+        computed: {
+            dayEvents(){
+                return this.events.filter((event)=>{
+                    if(event.date === this.date){
+                        return event
                     }
-                });
+                })
+
+            }
+        },
+        methods: {
+            getData(){
+                this.events = this.$store.getters.getEvents;
             },
             addEvent(data){
                 let date = this.date;
                 let event = {
-                    id: 0,
                     date: date,
                     title: data.title,
                     text: data.text,
-                    time: '15:00'
                 };
-                this.$store.dispatch('addID');
-                event.id = this.$store.getters.getID;
-                this.$store.dispatch('addEvent', event);
-                this.events.push(event);
+                this.$store.dispatch('addEvent', event)
             },
             editEvent(data){
                 let date = this.date;
@@ -74,23 +72,11 @@
                     date: date,
                     title: data.title,
                     text: data.text,
-                    time: '15:00'
                 };
                 this.$store.dispatch('editEvent', event);
-                this.events.find(function (elem) {
-                    if(elem.id === event.id){
-                        elem.title = event.title;
-                        elem.text = event.text;
-                    }
-                });
             },
             deleteEvent(id){
                 this.$store.dispatch('deleteEvent', id);
-                this.events.find((elem, i) => {
-                    if(elem.id === id){
-                        this.events.splice(i,1);
-                    }
-                })
             },
             show (eventType, data) {
                 this.modalData.eventType = eventType;

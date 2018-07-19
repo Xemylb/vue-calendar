@@ -1,6 +1,6 @@
 @import "../../assets/sass/variable"
 @import "../../assets/sass/mixin"
-.modal-mask
+.modal__mask
   position: absolute
   top: 0
   left: 0
@@ -14,7 +14,7 @@
   justify-content: center
   transition: opacity .3s ease
 
-.modal-wrapper
+.modal__wrapper
   cursor: default
   z-index: 5
   position: fixed
@@ -26,7 +26,7 @@
   align-items: center
   justify-content: center
 
-.modal-container
+.modal__container
   z-index: 9
   position: relative
   width: 600px
@@ -37,28 +37,43 @@
   +box-shadow(0 2px 8px rgba(0, 0, 0, 0.33))
   transition: all .3s ease
   font-family: Helvetica, Arial, sans-serif
+  color: $black
+  font-size: $sixteen-px
 
-.modal-header,.modal-footer, .modal-body
+.modal__header,.modal__footer, .modal__body
   border: none
   padding: 0
+
+.modal__header
+  padding-bottom: 20px
 
 .modal__header-title
   margin-top: 0
 
 .modal-enter
-  .modal-container
-    -webkit-transform: scale(1.1)
-    transform: scale(1.1)
+  .modal__container
+    -webkit-transform: scale(0)
+    transform: scale(0)
+    opacity: 0
+  .modal__mask
+    opacity: 0
 
-  .modal-wrapper
+.modal-enter-to
+  .modal__mask
+    opacity: 1
+
+  .modal__container
+    -webkit-transform: scale(1)
+    transform: scale(1)
     opacity: 1
 
 .modal-leave-active
-  .modal-container
-    -webkit-transform: scale(1.1)
-    transform: scale(1.1)
+  .modal__mask
+    opacity: 0
 
-  .modal-wrapper
+  .modal__container
+    -webkit-transform: scale(0)
+    transform: scale(0)
     opacity: 0
 
 .modal__control

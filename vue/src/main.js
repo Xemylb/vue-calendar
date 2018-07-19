@@ -9,12 +9,12 @@ import VueParticles from 'vue-particles'
 
 import events from './store/index'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSearch, faAngleLeft, faAngleRight, faPlus} from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faAngleLeft, faAngleRight, faPlus, faCaretUp} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Vue.use(BootstrapVue);
 Vue.use(VueParticles);
-library.add(faSearch, faAngleLeft, faAngleRight, faPlus);
+library.add(faSearch, faAngleLeft, faAngleRight, faPlus, faCaretUp);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
