@@ -1,5 +1,6 @@
 @import "../../assets/sass/variable"
 @import "../../assets/sass/mixin"
+
 .calendar__search
   display: flex
   justify-content: flex-start
@@ -48,6 +49,12 @@
     width: 150px
 
 @media (max-width: 767px)
+  .calendar__search
+    flex-basis: 100%
 
   .calendar__search-input
-    width: auto
+    width: 100%
+    font-size: 14px
+
+  .calendar__search-submit
+    font-size: 14px

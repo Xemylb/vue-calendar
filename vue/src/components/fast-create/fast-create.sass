@@ -57,9 +57,63 @@
 .fast-create__submit
   font-size: 14px
 
+.fast-create__btn-mobile
+  display: none
+
+/*animation*/
+.slide-fade-enter-active
+  transition: all .3s ease
+
+.slide-fade-leave-active
+  transition: all .3s ease
+
+.slide-fade-enter, .slide-fade-leave-to
+  transform: translateY(10px)
+  opacity: 0
+
+
 @media (max-width: 991px)
   .fast-create__modal
     right: 0
+
   .fast-create__caret
     left: inherit
     right: 40px
+
+@media (max-width: 767px)
+  .fast-create__btn-mobile
+    position: fixed
+    display: block
+    padding: 8px 13px
+    font-size: $eighteen-px
+    +border-radius(50%)
+    right: 5px
+    bottom: 5px
+    z-index: 7
+    +transition('transform, background-color', 0.3s)
+    &.show
+      background-color: $red
+      +transform(rotate(-135deg))
+
+  .fast-create__modal
+    position: fixed
+    right: 0
+    bottom: 60px
+    top: inherit
+
+  .fast-create__caret,.fast-create__close
+    display: none
+
+  .fast-create__btn
+    display: none
+
+  /*animation (767px)*/
+  .slide-fade-enter-active
+    transition: all .3s ease
+
+  .slide-fade-leave-active
+    transition: all .3s ease
+
+  .slide-fade-enter, .slide-fade-leave-to
+    transform: translateX(100px)
+    opacity: 0

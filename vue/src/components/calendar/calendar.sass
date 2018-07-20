@@ -4,7 +4,7 @@
   font-size: 16px
 
 .calendar__month
-  +calc('min-height', '100vh - 120px')
+  +calc('max-height', '100vh - 120px')
   display: flex
   align-items: flex-start
   align-content: flex-start
@@ -39,38 +39,69 @@
 .calendar__btn-now
   margin: 0 15px
 
-.calendar__day-header
-  text-align: center
-  border-top: 1px solid #eee
+.calendar__day
+  overflow: hidden
+  position: relative
+  text-align: left
+  padding: 25px 0 0 20px
+  font-size: 12px
+  flex-basis: 14.28%
+  background-color: #fafafa
   border-left: 1px solid $borderColor
   border-bottom: 1px solid $borderColor
-  flex-basis: 14.28%
-  align-items: flex-end
-  font-size: 24px
-  height: auto
-  padding: 10px
-  background-color: #4489fe
-  color: #fff
+  height: 120px
+  cursor: pointer
   &:hover
-    background-color: #3f74e4
+    background-color: #efefef
 
-.calendar__day-header:nth-child(7)
-  border-right: 1px solid #eee
-
-
+.calendar__month-header
+  display: flex
+  .calendar__day
+    text-align: center
+    border-top: 1px solid #eee
+    border-left: 1px solid $borderColor
+    border-bottom: 1px solid $borderColor
+    align-items: flex-end
+    font-size: 24px
+    height: auto
+    padding: 10px
+    background-color: #4489fe
+    color: #fff
+    &:hover
+      background-color: #3f74e4
+    &:nth-child(7)
+      border-right: 1px solid #eee
 @media (max-width: 767px)
 
-  .calendar__header, .calendar__control
+  .calendar__month
+    overflow-y: scroll
+    overflow-x: hidden
+    +calc('max-height', '100vh - 170px')
+  .calendar__month-name
+    text-align: left
+    flex-basis: 30%
+    margin: 0
+
+  .calendar__header
     justify-content: center
+
+  .calendar__control
+    justify-content: flex-start
+    flex-wrap: nowrap
 
   .calendar__control
     margin-bottom: 15px
 
   .calendar__control-btn
-    padding: 0.7rem 1rem
+    display: none
 
   .calendar__btn-now
-    margin: 0 10px 0 0
+    margin: 0
+    font-size: 14px
 
-  .calendar__day-header
-    font-size: $sixteen-px
+  .calendar__month-header
+    .calendar__day
+      padding: 5px
+      font-size: $sixteen-px
+
+

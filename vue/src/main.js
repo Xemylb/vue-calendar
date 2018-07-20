@@ -6,7 +6,7 @@ import router from './router'
 import moment from 'moment-timezone'
 import BootstrapVue from 'bootstrap-vue'
 import VueParticles from 'vue-particles'
-
+import Vue2TouchEvents from 'vue2-touch-events'
 import events from './store/index'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSearch, faAngleLeft, faAngleRight, faPlus, faCaretUp} from '@fortawesome/free-solid-svg-icons'
@@ -14,6 +14,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Vue.use(BootstrapVue);
 Vue.use(VueParticles);
+Vue.use(Vue2TouchEvents);
+
 library.add(faSearch, faAngleLeft, faAngleRight, faPlus, faCaretUp);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
@@ -30,6 +32,6 @@ new Vue({
       moment
     },
     store: events,
-  components: { App},
+  components: {App},
   template: '<App/>'
 });

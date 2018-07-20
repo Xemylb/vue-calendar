@@ -1,21 +1,6 @@
 @import "../../assets/sass/variable"
 @import "../../assets/sass/mixin"
 
-.calendar__day
-  overflow: hidden
-  position: relative
-  text-align: left
-  padding: 25px 0 0 20px
-  font-size: 12px
-  flex-basis: 14.28%
-  background-color: #fafafa
-  border-left: 1px solid $borderColor
-  border-bottom: 1px solid $borderColor
-  height: 120px
-  cursor: pointer
-  &:hover
-    background-color: #efefef
-
 .calendar__day:last-child, .calendar__day:nth-child(7n)
   border-right: 1px solid #eee
 
@@ -49,12 +34,8 @@
     opacity: 1
 
 .calendar__day-event:nth-child(3n)
-  background-color: #00ad5d
-
-.calendar__day-event:nth-child(4n)
   background-color: #0d7fb1
 
 @media (max-width: 767px)
   .calendar__day
-    height: 75px
     padding-left: 0

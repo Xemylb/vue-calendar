@@ -2,9 +2,13 @@
     <div class="container calendar">
         <div class="calendar__header">
             <div class="calendar__control">
-                <button class="btn btn_blue-outline calendar__control-btn mb-xs-15" v-on:click='getPrevMonth()'><font-awesome-icon icon="angle-left" /></button>
+                <button class="btn btn_blue-outline calendar__control-btn mb-xs-15" v-on:click='getPrevMonth'>
+                    <font-awesome-icon icon="angle-left"/>
+                </button>
                 <div class="calendar__month-name mb-xs-15">{{month}} {{year}}</div>
-                <button class="btn btn_blue-outline calendar__control-btn mb-xs-15" v-on:click='getNextMonth()'><font-awesome-icon icon="angle-right" /></button>
+                <button class="btn btn_blue-outline calendar__control-btn mb-xs-15" v-on:click='getNextMonth'>
+                    <font-awesome-icon icon="angle-right"/>
+                </button>
                 <div class="btn_purple-outline btn calendar__btn-now" @click="getCalendar(now)">Текущая дата</div>
                 <fast-create></fast-create>
             </div>
@@ -12,11 +16,15 @@
                 <search v-bind:dateFormat="dateFormat" @search="searchEvent"></search>
             </div>
         </div>
-        <div class="calendar__month">
-            <div v-for="day in daysNames" class="calendar__day calendar__day-header">
+        <div class="calendar__month-header">
+            <div v-for="day in daysNames" class="calendar__day">
                 {{day}}
             </div>
-            <calendar-day v-for="day in days" v-bind:day-data="day" v-bind:date-format="dateFormat"  :key="day.key + day.date"></calendar-day>
+        </div>
+
+        <div class="calendar__month" v-touch:swipe.left="getNextMonth" v-touch:swipe.right="getPrevMonth">
+            <calendar-day v-for="day in days" v-bind:day-data="day" v-bind:date-format="dateFormat"
+                          :key="day.key + day.date"></calendar-day>
         </div>
     </div>
 
@@ -34,7 +42,7 @@
     export default {
         name: 'Calendar',
         components: {App, moment, calendarDay, search, maskedInput, fastCreate},
-        created(){
+        created() {
             this.$store.dispatch('getEvents');
         },
         mounted() {
@@ -52,7 +60,7 @@
                 days: [],
                 month: '',
                 year: '',
-                now:'',
+                now: '',
             }
         },
         methods: {
@@ -69,7 +77,7 @@
                 let timeDate;
                 do {
                     let day = {
-                        key: '' ,
+                        key: '',
                         date: false,
                         prevDay: false,
                         events: []
@@ -87,7 +95,7 @@
                 this.year = moment(date).format('Y');
                 this.getPrevDays(date, daysArr);
             },
-            getPrevDays(date,daysArr) {
+            getPrevDays(date, daysArr) {
                 let timeDate;
                 do {
                     let day = {
@@ -108,13 +116,13 @@
 
                 this.days = this.addKeys(daysArr);
             },
-            addKeys(daysArr){
+            addKeys(daysArr) {
                 daysArr.forEach(function (item, i) {
                     item.key = i;
                 });
                 return daysArr;
             },
-            searchEvent(data){
+            searchEvent(data) {
                 let decodeDate = this.$moment(data.date, this.dateFormat);
                 this.getCalendar(decodeDate)
             },
@@ -126,5 +134,5 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="sass" scoped>
-   @import "calendar"
+    @import "calendar"
 </style>
