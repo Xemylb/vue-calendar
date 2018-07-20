@@ -1,11 +1,13 @@
 <template>
     <transition name="modal" :duration="{ enter: 0, leave: 300 }">
         <div class="modal__wrapper">
+
             <div class="modal__mask" @click="close"></div>
             <div class="modal__container">
                 <span class="modal__close" @click="close"><font-awesome-icon icon="plus"/></span>
                 <div class="modal__header">
                     <h3 class="modal__header-title text_dark-blue">{{customizeDate(date)}}</h3>
+                    {{id}}
                 </div>
 
                 <div class="modal__body" v-if="eventType === 'create'">

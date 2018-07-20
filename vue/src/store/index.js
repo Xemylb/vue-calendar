@@ -1,83 +1,52 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
+import qs from 'qs'
 /* eslint-disable */
 Vue.use(Vuex);
 
 const events = new Vuex.Store({
     state: {
         events: [],
-        lastID: 6
     },
     getters: {
         getEvents(state) {
-            return state.events
-        },
-        getID(state) {
-            return state.lastID
+            return state.events;
         }
     },
     mutations: {
         getEvents(state) {
-            state.events = [
-                {
-                    id: 0,
-                    date: '04-07-2018',
-                    title: 'Придаться грустным воспоминаниям',
-                    text: '',
-                },
-                {
-                    id: 1,
-                    date: '06-07-2018',
-                    title: 'Накормить радужного пони в подвале',
-                    text: 'Event texl lorem text lorem',
-                },
-                {
-                    id: 2,
-                    date: '09-07-2018',
-                    title: 'Протрезветь до работы',
-                    text: 'Event texl lorem text lorem',
-                },
-                {
-                    id: 3,
-                    date: '25-06-2018',
-                    title: 'Махнуть медавухи',
-                    text: 'Event texl lorem text lorem',
-                },
-                {
-                    id: 4,
-                    date: '01-08-2018',
-                    title: 'Хлебнуть каньяку',
-                    text: 'Event texl lorem text lorem',
-                },
-                {
-                    id: 5,
-                    date: '14-06-2018',
-                    title: 'Выпить пивка',
-                    text: 'Выпить пивка с друзяшками',
-                },
-                {
-                    id: 6,
-                    date: '14-12-2019',
-                    title: 'Выпить в будущем',
-                    text: 'Выпить пивка с друзяшками',
-                }]
+            axios.post('http://localhost:3001/getEvents').then(response => {
+                response.data.map((event) => {state.events.push(event);})
+            });
         },
         addEvent(state, payload) {
-            payload.id = state.lastID = ++state.lastID;
-            state.events.push(payload);
+            axios.post('http://localhost:3001/createEvent', qs.stringify(payload)).then(response => {
+                response.data.id = response.data._id;
+                state.events.push(response.data);
+            });
+
         },
         editEvent(state, payload) {
-            state.events.find(function (elem) {
-                if (elem.id === payload.id) {
-                    elem.date = payload.date;
-                    elem.title = payload.title;
-                    elem.text = payload.text;
-                }
-            })
+            console.log(payload);
+            axios.put('http://localhost:3001/editEvent', qs.stringify(payload)).then(response => {
+                state.events.find(function (elem) {
+                    if (elem.id === response.data.id) {
+                        elem.date = payload.date;
+                        elem.title = payload.title;
+                        elem.text = payload.text;
+                    }
+                })
+            });
         },
         delete(state, id) {
-            let i = state.events.map(elem => elem.id).indexOf(id);
-            state.events.splice(i, 1);
+            axios.post('http://localhost:3001/deleteEvent', qs.stringify({id:id})).then(response => {
+                if(response.data.answer){
+                    let i = state.events.map(elem => elem.id).indexOf(id);
+                    state.events.splice(i, 1);
+                }
+            });
+
         }
     },
     actions: {
