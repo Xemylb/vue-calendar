@@ -1,7 +1,7 @@
 @import "../../assets/sass/variable"
 @import "../../assets/sass/mixin"
 
-.calendar__search
+.search
   display: flex
   justify-content: flex-start
   align-items: center
@@ -9,16 +9,16 @@
   position: relative
 
 
-.calendar__search-input
+.search__input
   border-radius: 3px 0 0 3px
   padding: 0.375rem 0.75rem
   border: 1px solid $borderColor
 
-.calendar__search-submit
+.search__submit
   border-top-left-radius: 0
   border-bottom-left-radius: 0
 
-.calendar__search-list
+.search__list
   position: absolute
   left: 0
   top: 38px
@@ -28,33 +28,37 @@
   z-index: 1
   border: 1px solid $borderColor
 
-.calendar__search-item
+.search__item
   cursor: pointer
   text-align: left
   font-size: 12px
   border-bottom: 1px solid $borderColor
   padding: 3px 10px
-  .search-item__name
-    margin-bottom: 0
-    font-weight: 700
-  .search-item__date
-    margin-bottom: 0
-    color: $blue
   &:hover
     background-color: #fafafa
 
+.search__item-name
+  margin-bottom: 0
+  font-weight: 700
+
+.search__item-date
+  margin-bottom: 0
+  color: $blue
+
+
+
 @media (max-width: 991px)
 
-  .calendar__search-input
+  .search__input
     width: 150px
 
 @media (max-width: 767px)
-  .calendar__search
+  .search
     flex-basis: 100%
 
-  .calendar__search-input
+  .search__input
     width: 100%
     font-size: 14px
 
-  .calendar__search-submit
+  .search__submit
     font-size: 14px

@@ -13,7 +13,7 @@ const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v
 const SCOPES = 'https://www.googleapis.com/auth/calendar';
 const googleApi = gapi;
 
-/* eslint-disable */
+
 Vue.use(Vuex);
 
 const events = new Vuex.Store({
@@ -35,7 +35,7 @@ const events = new Vuex.Store({
         getGoogleEvents(state){
             googleApi.client.calendar.events.list({
                 'calendarId': 'primary',
-                'timeMin': (new Date()).toISOString(),
+                // 'timeMin': (new Date()).toISOString(),
                 'showDeleted': false,
                 'singleEvents': true,
                 'maxResults': 100,
@@ -59,7 +59,6 @@ const events = new Vuex.Store({
                 });
             });
             state.googleAuth = true;
-            console.log('Гугл логин: '+ state.googleAuth);
             return state.events;
         },
         addEvent(state, payload) {
@@ -96,7 +95,7 @@ const events = new Vuex.Store({
 
         },
         editEvent(state, payload) {
-            if(state.googleAuth){
+            if(payload.google){
                 let data = {
                     'summary': payload.title,
                     'description': payload.text,
@@ -137,7 +136,17 @@ const events = new Vuex.Store({
 
         },
         delete(state, id) {
-            if(state.googleAuth){
+            let google = false;
+
+            state.events.map((elem) =>{
+                if(elem.id === id){
+                    if(elem.google){
+                        google = true;
+                    }
+                }
+            });
+
+            if(google){
                 let request = googleApi.client.calendar.events.delete({
                     'calendarId': 'primary',
                     'eventId': id
@@ -163,7 +172,6 @@ const events = new Vuex.Store({
             context.commit('getEvents', events);
         },
         getGoogleEvents(context, events) {
-            console.log(222);
             context.commit('getGoogleEvents', events);
         },
         addEvent(context, event) {

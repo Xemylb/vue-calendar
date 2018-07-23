@@ -1,11 +1,11 @@
 <template>
-    <div class="calendar__search">
-        <input type="text" class="calendar__search-input" placeholder="Найти событие" v-model="search" v-on:keyup="filter">
-        <button class="btn btn_blue-outline calendar__search-submit"><font-awesome-icon icon="search" /> </button>
-            <div class="calendar__search-list" v-show="filtredEvents">
-                <div class="calendar__search-item" v-for="event in filtredEvents" @click="searchEvent(event.date)">
-                    <p class="search-item__name">{{event.title}}</p>
-                    <p class="search-item__date">{{customizeDate(event.date)}}</p>
+    <div class="search">
+        <input type="text" class="search__input" placeholder="Найти событие" v-model="search" v-on:keyup="filter">
+        <button class="btn btn_blue-outline search__submit"><font-awesome-icon icon="search" /> </button>
+            <div class="search__list" v-show="filtredEvents">
+                <div class="search__item" v-for="event in filtredEvents" @click="searchEvent(event.date)">
+                    <p class="search__item-name">{{event.title}}</p>
+                    <p class="search__item-date">{{customizeDate(event.date)}}</p>
                 </div>
             </div>
     </div>
@@ -20,7 +20,6 @@
         },
         data(){
             return{
-                title: 'Header',
                 events: [],
                 search: '',
                 filtredEvents: ''

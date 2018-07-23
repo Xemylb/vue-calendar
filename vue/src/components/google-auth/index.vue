@@ -1,6 +1,6 @@
 <template>
     <div class="google-auth">
-            <button v-if='!authorized' @click="handleAuthClick" class="btn google-auth__btn google-auth__btn-login btn_red-outline"><img class="img-fluid google-auth__btn-img" src="../../assets/google.png" alt=""><span class="google-auth__btn-text">Войти</span></button>
+            <button v-if='!authorized' @click="handleAuthClick" class="btn google-auth__btn google-auth__btn-login btn_red-outline"><img class="img-fluid google-auth__btn-img" src="../../assets/img/google.png" alt=""><span class="google-auth__btn-text">Войти</span></button>
             <button v-if='authorized' class="btn google-auth__btn google-auth__btn-disconnect btn_red-outline"><span class="google-auth__btn-text">{{email}}</span> <font-awesome-icon icon="sign-out-alt"/> </button>
     </div>
 </template>

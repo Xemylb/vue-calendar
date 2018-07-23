@@ -1,7 +1,7 @@
 <template>
-    <div class="calendar__day" v-bind:class="{ calendar__day_prev: prevDay, calendar__day_current: isCurrentDay}" @click.self="show('create')">
-         <div class="calendar__day-num">{{dateDay}}</div>
-        <div class="calendar__day-event"  v-for="event in dayEvents" @click="show('edit', event)">
+    <div class="day" v-bind:class="{ day_prev: prevDay, day_current: isCurrentDay}" @click.self="show('create')">
+         <div class="day__num">{{dateDay}}</div>
+        <div class="day__event"  v-for="event in dayEvents" @click="show('edit', event)">
             {{event.title}}
         </div>
         <event-modal v-bind:modal-data="modalData" v-if="showModal" @close="close" @addEvent="addEvent" @editEvent="editEvent" @deleteEvent="deleteEvent"></event-modal>

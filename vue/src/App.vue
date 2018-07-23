@@ -1,26 +1,23 @@
 <template>
-  <div id="app">
-    <main class="main">
-      <router-view/>
-    </main>
-    <vue-particles color="#dedede"></vue-particles>
-  </div>
+    <div id="app">
+        <main class="main">
+            <router-view/>
+        </main>
+        <vue-particles color="#dedede"></vue-particles>
+    </div>
 </template>
 
 <script>
-    import headerComponent from './components/header'
-    import footerComponent from './components/footer'
+
     import 'bootstrap/dist/css/bootstrap.css'
 
-export default {
-    /* eslint-disable */
-  name: 'App',
-    components:{
-        headerComponent,footerComponent
-    },
-}
+    export default {
+        /* eslint-disable */
+        name: 'App',
+        components: {},
+    }
 </script>
 
 <style lang="sass">
-  @import 'main'
+    @import 'main'
 </style>
