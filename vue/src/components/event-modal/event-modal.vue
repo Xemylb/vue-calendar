@@ -6,10 +6,11 @@
             <div class="modal__container">
                 <span class="modal__close" @click="close"><font-awesome-icon icon="plus"/></span>
                 <div class="modal__header">
-                    <h3 class="modal__header-title text_dark-blue">{{customizeDate(date)}}</h3>
-                    {{id}}
+                    <h3 class="modal__header-title text_dark-blue">
+                        <img v-show="google" src="../../assets/google.png" class="modal__header-img img-fluid" alt="google">
+                        {{customizeDate(date)}}
+                    </h3>
                 </div>
-
                 <div class="modal__body" v-if="eventType === 'create'">
                     <div class="modal__control">
                         <label><b>Название события<span class="text_red">*</span></b></label>
@@ -73,6 +74,7 @@
                 title: this.modalData.dayData.title,
                 text: this.modalData.dayData.text,
                 dateFormat: this.modalData.dateFormat,
+                google: this.modalData.dayData.google,
                 eventOnEdit: false,
                 error: false,
                 errorText: 'Название не должно быть пустым'

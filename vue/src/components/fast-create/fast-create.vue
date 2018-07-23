@@ -19,6 +19,9 @@
     export default {
         name: "fast-create",
         components: {maskedInput},
+        props:{
+            dateFormat: String
+        },
         data (){
             return{
                 title: '',
@@ -36,9 +39,11 @@
                 this.title = '';
             },
             addEvent(){
+                let vm = this;
+                console.log(vm.dateFormat);
                 let event = {
-                    date: this.date,
-                    title: this.title,
+                    date: vm.$moment(vm.date, 'DD-MM-YYYY').format(vm.dateFormat),
+                    title: vm.title,
                     text: '',
                 };
                 this.$store.dispatch('addEvent', event);

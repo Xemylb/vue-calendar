@@ -14,11 +14,19 @@
   .calendar__day-event
     opacity: 0.6
 
+
 .calendar__day-num
   position: absolute
   left: 5px
   top: 5px
   font-weight: 600
+
+.calendar__day_current
+  .calendar__day-num
+    background-color: $purple
+    padding: 2px 4px
+    +border-radius(50%)
+    color: $white
 
 .calendar__day-event
   white-space: nowrap
@@ -38,4 +46,4 @@
 
 @media (max-width: 767px)
   .calendar__day
-    padding-left: 0
+    padding-left: 5px

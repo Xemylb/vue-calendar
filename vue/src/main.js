@@ -9,14 +9,14 @@ import VueParticles from 'vue-particles'
 import Vue2TouchEvents from 'vue2-touch-events'
 import events from './store/index'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSearch, faAngleLeft, faAngleRight, faPlus, faCaretUp} from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faAngleLeft, faAngleRight, faPlus, faCaretUp, faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Vue.use(BootstrapVue);
 Vue.use(VueParticles);
 Vue.use(Vue2TouchEvents);
 
-library.add(faSearch, faAngleLeft, faAngleRight, faPlus, faCaretUp);
+library.add(faSearch, faAngleLeft, faAngleRight, faPlus, faCaretUp, faSignOutAlt);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

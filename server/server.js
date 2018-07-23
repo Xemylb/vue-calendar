@@ -1,16 +1,17 @@
-var express  = require('express');
-var app      = express();
-var port     = process.env.PORT || 3001 || 8080;
-var mongoose = require('mongoose');
-var passport = require('passport');
-var server = require('http').Server(app);
-var path = require('path');
-var cors = require('cors');
-var morgan       = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
-var events = require('./models/eventSchema');
+const express  = require('express');
+const app      = express();
+const port     = process.env.PORT || 3001 || 8080;
+const mongoose = require('mongoose');
+const passport = require('passport');
+const server = require('http').Server(app);
+const path = require('path');
+const cors = require('cors');
+const morgan       = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser   = require('body-parser');
+const session      = require('express-session');
+const events = require('./models/eventSchema');
+
 
 // var configDB = require('./config/database.js');
 // configuration ===============================================================

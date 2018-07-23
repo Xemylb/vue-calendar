@@ -1,5 +1,5 @@
 <template>
-    <div class="calendar__day" v-bind:class="{ calendar__day_prev: prevDay}" @click.self="show('create')">
+    <div class="calendar__day" v-bind:class="{ calendar__day_prev: prevDay, calendar__day_current: isCurrentDay}" @click.self="show('create')">
          <div class="calendar__day-num">{{dateDay}}</div>
         <div class="calendar__day-event"  v-for="event in dayEvents" @click="show('edit', event)">
             {{event.title}}
@@ -13,7 +13,7 @@
     import eventModal from '../event-modal/event-modal'
     export default {
         name: "calendarDay",
-        props: ['dayData', 'dateFormat'],
+        props: ['dayData', 'dateFormat', 'now'],
         components: {
             eventModal
         },
@@ -22,7 +22,10 @@
         },
         mounted(){
             this.getData();
-            this.dateDay = this.$moment(this.date, 'DD-MM-YYYY').format('DD')
+            this.dateDay = this.$moment(this.date, this.dateFormat).format('DD');
+            if(this.$moment(this.now).format(this.dateFormat) === this.date){
+                this.isCurrentDay = true;
+            }
         },
         data() {
             return {
@@ -32,6 +35,7 @@
                         id:'',
                         title: '',
                         text: '',
+                        google: ''
                     },
                     date: this.dayData.date,
                     dateFormat: this.dateFormat
@@ -41,6 +45,7 @@
                 dateDay: '',
                 prevDay: this.dayData.prevDay,
                 events: '',
+                isCurrentDay: false
             }},
         computed: {
             dayEvents(){
@@ -79,14 +84,15 @@
             },
             show (eventType, data) {
                 this.modalData.eventType = eventType;
+                this.modalData.dayData.id = '';
+                this.modalData.dayData.title = '';
+                this.modalData.dayData.text = '';
+                this.modalData.dayData.google = '';
                 if(data){
                     this.modalData.dayData.id = data.id;
                     this.modalData.dayData.title = data.title;
+                    this.modalData.dayData.google = data.google;
                     this.modalData.dayData.text = data.text;
-                }else{
-                    this.modalData.dayData.id = '';
-                    this.modalData.dayData.title = '';
-                    this.modalData.dayData.text = '';
                 }
                this.showModal = true;
             },

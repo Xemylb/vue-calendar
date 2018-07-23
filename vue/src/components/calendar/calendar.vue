@@ -1,5 +1,6 @@
 <template>
     <div class="container calendar">
+
         <div class="calendar__header">
             <div class="calendar__control">
                 <button class="btn btn_blue-outline calendar__control-btn mb-xs-15" v-on:click='getPrevMonth'>
@@ -10,10 +11,11 @@
                     <font-awesome-icon icon="angle-right"/>
                 </button>
                 <div class="btn_purple-outline btn calendar__btn-now" @click="getCalendar(now)">Текущая дата</div>
-                <fast-create></fast-create>
+                <fast-create v-bind:dateFormat="dateFormat"></fast-create>
+                <google-api-calendar></google-api-calendar>
             </div>
             <div class="calendar__search">
-                <search v-bind:dateFormat="dateFormat" @search="searchEvent"></search>
+                <search v-bind:date-format="dateFormat" @search="searchEvent"></search>
             </div>
         </div>
         <div class="calendar__month-header">
@@ -23,7 +25,7 @@
         </div>
 
         <div class="calendar__month" v-touch:swipe.left="getNextMonth" v-touch:swipe.right="getPrevMonth">
-            <calendar-day v-for="day in days" v-bind:day-data="day" v-bind:date-format="dateFormat"
+            <calendar-day v-for="day in days" v-bind:day-data="day" v-bind:date-format="dateFormat" v-bind:now="now"
                           :key="day.key + day.date"></calendar-day>
         </div>
     </div>
@@ -36,12 +38,13 @@
     import 'moment/locale/ru'
     import calendarDay from '../day/day'
     import search from '../search/search'
+    import googleApiCalendar from '../google-api-calendar/index'
     import fastCreate from '../fast-create/fast-create'
     import maskedInput from 'vue-masked-input'
 
     export default {
         name: 'Calendar',
-        components: {App, moment, calendarDay, search, maskedInput, fastCreate},
+        components: {App, moment, calendarDay, search, maskedInput, fastCreate, googleApiCalendar},
         created() {
             this.$store.dispatch('getEvents');
         },
@@ -56,7 +59,7 @@
                 daysNames: ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'],
                 prevDays: [],
                 currentDate: '',
-                dateFormat: 'DD-MM-YYYY',
+                dateFormat: 'YYYY-MM-DD',
                 days: [],
                 month: '',
                 year: '',

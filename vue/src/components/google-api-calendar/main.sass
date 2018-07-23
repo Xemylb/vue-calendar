@@ -1,0 +1,52 @@
+@import "../../assets/sass/variable"
+@import "../../assets/sass/mixin"
+
+.google-auth
+  position: absolute
+  right: 0
+  top: -90%
+  z-index: 7
+
+.google-auth__btn
+  font-size: 14px
+  display: flex
+  align-items: center
+  justify-content: center
+  background-color: $white
+  font-weight: 600
+  &:hover, &:focus
+    background-color: $white
+    border: 1px solid $blue
+    color: $blue
+
+
+.google-auth__btn-img
+  max-width: 25px
+  margin-right: 10px
+
+.google-auth__btn-disconnect
+  .google-auth__btn-text
+    margin-right: 10px
+
+@media (max-width: 767px)
+  .google-auth
+    position: fixed
+    top: inherit
+    bottom: 4px
+    right: 60px
+
+  .google-auth__btn
+    background-color: $red
+    +border-radius(50%)
+    padding: 0.55rem
+    font-size: $twentyfour-px
+    color: $white
+
+  .google-auth__btn-login
+    background-color: $white
+
+  .google-auth__btn-text
+    display: none
+
+  .google-auth__btn-img
+    margin: 0
