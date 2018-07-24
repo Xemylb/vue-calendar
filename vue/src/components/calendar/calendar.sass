@@ -44,7 +44,7 @@
   display: flex
 
 .calendar__day-name
-  flex-basis: 14.28%
+  +calc('flex-basis', '100%/7')
   text-align: center
   border-top: 1px solid #eee
   border-left: 1px solid $borderColor
