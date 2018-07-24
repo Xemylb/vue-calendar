@@ -5,7 +5,7 @@ import qs from 'qs'
 import moment from 'moment-timezone'
 
 /*CalendarApi*/
-import '../components/google-api-calendar/api.js';
+import '../components/google-auth/api.js';
 const CLIENT_ID = '460760836805-h6kbhuu5e67i74q06f5dcls6iqk5t0mq.apps.googleusercontent.com';
 const SECRET= 'RPwOzkz7YpSFj8yannZIxBzT';
 const API_KEY = 'AIzaSyBr2nuXusTent3NfhXBIeTk15YP6i0WvoA';
