@@ -106,7 +106,8 @@
                     this.$emit('editEvent', {
                         id: this.id,
                         title: this.title,
-                        text: this.text
+                        text: this.text,
+                        google: this.google
                     });
                 }
             },

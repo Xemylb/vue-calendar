@@ -77,6 +77,9 @@
                     title: data.title,
                     text: data.text,
                 };
+                if(data.google){
+                    event.google = true;
+                }
                 this.$store.dispatch('editEvent', event);
             },
             deleteEvent(id){

@@ -49,17 +49,27 @@ const events = new Vuex.Store({
                         date: '',
                         google: true
                     };
-                    event.id = item.id;
-                    event.title = item.summary;
-                    if(item.description){
-                        event.text = item.description;
+                    if(item.start.date){
+                        event.id = item.id;
+                        event.title = item.summary;
+                        if(item.description){
+                            event.text = item.description;
+                        }
+                        event.date = item.start.date;
+                        state.events.push(event);
                     }
-                    event.date = item.start.date;
-                    state.events.push(event);
                 });
             });
             state.googleAuth = true;
             return state.events;
+        },
+        googleLogOut(state){
+            state.events.map((event, i)=>{
+                if(event.google){
+                    state.events.splice(i, 1);
+                }
+            });
+            state.googleAuth = false;
         },
         addEvent(state, payload) {
             if(state.googleAuth){
@@ -68,11 +78,11 @@ const events = new Vuex.Store({
                     'description': payload.text,
                     'start': {
                         'date': payload.date,
-                        'timeZone': 'UTC+03:00'
+                        'timeZone': 'UTC+02:00'
                     },
                     'end': {
                         'date': payload.date,
-                        'timeZone': 'UTC+03:00'
+                        'timeZone': 'UTC+02:00'
                     },
                 };
                 let request = googleApi.client.calendar.events.insert({
@@ -101,11 +111,11 @@ const events = new Vuex.Store({
                     'description': payload.text,
                     'start': {
                         'date': payload.date,
-                        'timeZone': 'UTC+03:00'
+                        'timeZone': 'UTC+02:00'
                     },
                     'end': {
                         'date': payload.date,
-                        'timeZone': 'UTC+03:00'
+                        'timeZone': 'UTC+02:00'
                     },
                 };
                 let request = googleApi.client.calendar.events.patch({
@@ -173,6 +183,9 @@ const events = new Vuex.Store({
         },
         getGoogleEvents(context, events) {
             context.commit('getGoogleEvents', events);
+        },
+        googleLogOut(context) {
+            context.commit('googleLogOut');
         },
         addEvent(context, event) {
             context.commit('addEvent', event);

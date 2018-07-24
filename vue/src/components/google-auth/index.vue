@@ -1,7 +1,7 @@
 <template>
     <div class="google-auth">
             <button v-if='!authorized' @click="handleAuthClick" class="btn google-auth__btn google-auth__btn-login btn_red-outline"><img class="img-fluid google-auth__btn-img" src="../../assets/img/google.png" alt=""><span class="google-auth__btn-text">Войти</span></button>
-            <button v-if='authorized' class="btn google-auth__btn google-auth__btn-disconnect btn_red-outline"><span class="google-auth__btn-text">{{email}}</span> <font-awesome-icon icon="sign-out-alt"/> </button>
+            <button v-if='authorized' @click="handleSignoutClick" class="btn google-auth__btn google-auth__btn-disconnect btn_red-outline"><span class="google-auth__btn-text">{{email}}</span> <font-awesome-icon icon="sign-out-alt"/> </button>
     </div>
 </template>
 
@@ -33,36 +33,36 @@
                 this.api.load('client:auth2', this.initClient);
             },
             initClient() {
-                let vm = this;
-                vm.api.client.init({
+                let googleAuth = this;
+                googleAuth.api.client.init({
                     apiKey: API_KEY,
                     clientId: CLIENT_ID,
                     discoveryDocs: DISCOVERY_DOCS,
                     scope: SCOPES
                 }).then(_ => {
                     // Listen for sign-in state changes.
-                    vm.api.auth2.getAuthInstance().isSignedIn.listen(vm.authorized);
+                    googleAuth.api.auth2.getAuthInstance().isSignedIn.listen(googleAuth.authorized);
                 });
             },
-
+            handleSignoutClick() {
+                let googleAuth = this;
+                Promise.resolve(googleAuth.api.auth2.getAuthInstance().signOut())
+                    .then(_ => {
+                        googleAuth.authorized = false;
+                        this.$store.dispatch('googleLogOut')
+                    });
+            },
 
             handleAuthClick() {
-                let vm = this;
-                Promise.resolve(this.api.auth2.getAuthInstance().signIn())
+                let googleAuth = this;
+                Promise.resolve(googleAuth.api.auth2.getAuthInstance().signIn())
                     .then(response => {
-                        vm.email = response.w3.U3;
-                        this.authorized = true;
-                        this.getData();
+                        googleAuth.email = response.w3.U3;
+                        googleAuth.authorized = true;
+                        googleAuth.getData();
             });
             },
 
-
-            // handleSignoutClick(event) {
-            //     Promise.resolve(this.api.auth2.getAuthInstance().signOut())
-            //         .then(_ => {
-            //             this.authorized = false;
-            //         });
-            // },
             getData() {
                 this.$store.dispatch('getGoogleEvents')
             },
