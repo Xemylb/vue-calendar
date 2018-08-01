@@ -1,5 +1,6 @@
 <template>
     <div class="fast-create">
+        <div class="fast-create__caption" @click="toggle" v-show="show"></div>
         <button class="btn_darkblue-outline btn fast-create__btn" @click="toggle">Быстрое создание</button>
         <button class="btn btn_blue fast-create__btn-mobile" v-bind:class="{show: show}" @click="toggle">
             <font-awesome-icon icon="plus"/>

@@ -11,8 +11,9 @@ const SECRET= 'RPwOzkz7YpSFj8yannZIxBzT';
 const API_KEY = 'AIzaSyBr2nuXusTent3NfhXBIeTk15YP6i0WvoA';
 const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
 const SCOPES = 'https://www.googleapis.com/auth/calendar';
-const googleApi = gapi;
 
+const googleApi = gapi;
+const server = 'http://localhost:3001';
 
 Vue.use(Vuex);
 
@@ -28,7 +29,7 @@ const events = new Vuex.Store({
     },
     mutations: {
         getEvents(state) {
-            axios.post('http://localhost:3001/getEvents').then(response => {
+            axios.post(server + '/getEvents').then(response => {
                 response.data.map((event) => {state.events.push(event);})
             });
         },
@@ -96,7 +97,7 @@ const events = new Vuex.Store({
                     console.log(state.events);
                 })
             }else{
-                axios.post('http://localhost:3001/createEvent', qs.stringify(payload)).then(response => {
+                axios.post(server + '/createEvent', qs.stringify(payload)).then(response => {
                     response.data.id = response.data._id;
                     state.events.push(response.data);
                 });
@@ -133,7 +134,7 @@ const events = new Vuex.Store({
                     })
                 })
             }else{
-                axios.put('http://localhost:3001/editEvent', qs.stringify(payload)).then(response => {
+                axios.put(server + '/editEvent', qs.stringify(payload)).then(response => {
                     state.events.find(function (elem) {
                         if (elem.id === response.data.id) {
                             elem.date = payload.date;
@@ -166,7 +167,7 @@ const events = new Vuex.Store({
                     state.events.splice(i, 1);
                 })
             }else{
-                axios.post('http://localhost:3001/deleteEvent', qs.stringify({id:id})).then(response => {
+                axios.post(server + '/deleteEvent', qs.stringify({id:id})).then(response => {
                     if(response.data.answer){
                         let i = state.events.map(elem => elem.id).indexOf(id);
                         state.events.splice(i, 1);

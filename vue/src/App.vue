@@ -8,11 +8,8 @@
 </template>
 
 <script>
-
     import 'bootstrap/dist/css/bootstrap.css'
-
     export default {
-        /* eslint-disable */
         name: 'App',
         components: {},
     }

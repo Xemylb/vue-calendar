@@ -19,14 +19,27 @@
   border-bottom-left-radius: 0
 
 .search__list
+  width: 100%
+  height: auto
+  background-color: $white
+  border: 1px solid $borderColor
+
+.search__scrollbar
   position: absolute
   left: 0
   top: 38px
   width: 100%
-  height: auto
-  background-color: $white
+  max-height: 330px
   z-index: 1
-  border: 1px solid $borderColor
+
+.vue-scrollbar__scrollbar-vertical
+  width: 6px
+  background: $purple
+  +border-radius(4px)
+  .scrollbar
+    width: 6px
+    +border-radius(4px)
+    background: $blue
 
 .search__item
   cursor: pointer

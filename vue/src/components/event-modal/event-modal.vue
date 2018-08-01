@@ -64,7 +64,19 @@
 <script>
     export default {
         name: "event-modal",
-        props: ['modalData'],
+        props: {
+            modalData:{
+                eventType: String,
+                date: String,
+                dateFormat: String,
+                dayData:{
+                    id: String,
+                    title: String,
+                    text: String,
+                    google: Boolean
+                }
+            }
+        },
         data() {
             return {
                 date: this.modalData.date,
@@ -81,7 +93,6 @@
         },
         methods: {
             close: function () {
-                // генерируем событие 'remove' и передаём id элемента
                 this.$emit('close');
                 this.clearData();
             },
@@ -91,7 +102,6 @@
                 this.date = '';
             },
             addEvent: function () {
-                // генерируем событие 'remove' и передаём id элемента
                 if (this.validate()) {
                     this.$emit('addEvent', {
                         title: this.title,

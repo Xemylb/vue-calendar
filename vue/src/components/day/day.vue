@@ -13,7 +13,18 @@
     import eventModal from '../event-modal/event-modal'
     export default {
         name: "calendarDay",
-        props: ['dayData', 'dateFormat', 'now'],
+        props: {
+            dayData:{
+                id: String,
+                title: String,
+                text: String,
+                google: Boolean,
+                date: String,
+                prevDay: Boolean
+            },
+            dateFormat: String,
+            now: Date
+        },
         components: {
             eventModal
         },
