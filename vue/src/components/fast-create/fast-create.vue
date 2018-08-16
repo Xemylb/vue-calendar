@@ -11,7 +11,7 @@
                 <span class="fast-create__close" @click="toggle"><font-awesome-icon icon="plus"/> </span>
                 <div class="fast-create__control">
                     <masked-input class="fast-create__event-date fast-create__input" v-model.trim="date"
-                                  placeholder-char="_" mask="11-11-1111" placeholder="Дата: 12-12-2018*"/>
+                                  placeholder-char="_" mask="11-11-1111,11:11" placeholder="Дата: 12-12-2018,12:30*"/>
                     <p class="text_red fast-create__error" v-show="errors.date.flag">{{errors.date.text}}</p>
                 </div>
                 <div class="fast-create__control">
@@ -64,16 +64,17 @@
             addEvent() {
                 if (this.validate()) {
                     let event = {
-                        date: this.$moment(this.date, 'DD-MM-YYYY').format(this.dateFormat),
+                        date: this.$moment(this.date, 'DD-MM-YYYY, LT').format(),
                         title: this.title,
                         text: '',
+                        time: ''
                     };
                     this.$store.dispatch('addEvent', event);
                     this.toggle();
                 }
             },
             validate() {
-                let localeFormat = 'DD-MM-YYYY';
+                let localeFormat = 'DD-MM-YYYY,LT';
                 let validDate = this.$moment(this.date, localeFormat).isValid();
 
                 if (!validDate || !this.title) {

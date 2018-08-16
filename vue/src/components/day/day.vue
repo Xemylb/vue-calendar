@@ -48,7 +48,7 @@
                         text: '',
                         google: ''
                     },
-                    date: this.dayData.date,
+                    date: '',
                     dateFormat: this.dateFormat
                 },
                 showModal: false,
@@ -61,7 +61,7 @@
         computed: {
             dayEvents(){
                 return this.events.filter((event)=>{
-                    if(event.date === this.date){
+                    if(this.$moment(event.date).format(this.dateFormat) === this.date){
                         return event
                     }
                 })
@@ -72,7 +72,7 @@
                 this.events = this.$store.getters.getEvents;
             },
             addEvent(data){
-                let date = this.date;
+                let date = this.$moment(this.date, this.dateFormat).format();
                 let event = {
                     date: date,
                     title: data.title,
@@ -81,10 +81,8 @@
                 this.$store.dispatch('addEvent', event)
             },
             editEvent(data){
-                let date = this.date;
                 let event = {
                     id: data.id,
-                    date: date,
                     title: data.title,
                     text: data.text,
                 };
@@ -99,10 +97,12 @@
             show (eventType, data) {
                 this.modalData.eventType = eventType;
                 this.modalData.dayData.id = '';
+                this.modalData.date = this.dayData.date;
                 this.modalData.dayData.title = '';
                 this.modalData.dayData.text = '';
                 this.modalData.dayData.google = '';
                 if(data){
+                    this.modalData.date = data.date;
                     this.modalData.dayData.id = data.id;
                     this.modalData.dayData.title = data.title;
                     this.modalData.dayData.google = data.google;

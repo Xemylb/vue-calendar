@@ -64,6 +64,7 @@
 <script>
     export default {
         name: "event-modal",
+
         props: {
             modalData:{
                 eventType: String,
@@ -77,9 +78,12 @@
                 }
             }
         },
+        mounted(){
+            this.date = this.$moment(this.modalData.date).format()
+        },
         data() {
             return {
-                date: this.modalData.date,
+                date: '',
                 id: this.modalData.dayData.id,
                 eventType: this.modalData.eventType,
                 title: this.modalData.dayData.title,
@@ -126,7 +130,7 @@
                 this.$emit('deleteEvent', this.id);
             },
             customizeDate(date) {
-                return this.$moment(date, this.dateFormat).format("DD MMMM YYYY")
+                return this.$moment(date).format("DD MMMM YYYY, LT")
             },
             validate() {
                 if (!this.title) {

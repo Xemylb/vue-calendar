@@ -15,7 +15,7 @@ const events = require('./models/eventSchema');
 
 // var configDB = require('./config/database.js');
 // configuration ===============================================================
-mongoose.connect('mongodb://Xemylian:Sinavova123@ds243931.mlab.com:43931/calendar',{ useNewUrlParser: true }); // connect to our database
+mongoose.connect('mongodb://Xemylian:Sinavova123@ds121461.mlab.com:21461/vue-calendar2',{ useNewUrlParser: true }); // connect to our database
 require('./config/passport.js')(passport);
 
 // uncomment after placing your favicon in /public

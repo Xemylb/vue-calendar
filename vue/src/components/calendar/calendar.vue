@@ -125,7 +125,7 @@
                 return daysArr;
             },
             searchEvent(data) {
-                this.activeDate = this.$moment(data.date, this.dateFormat);
+                this.activeDate = this.$moment(data.date).format(this.dateFormat);
                 this.getCalendar()
             },
             getTodayDate(){
