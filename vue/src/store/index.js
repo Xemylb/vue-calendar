@@ -118,9 +118,11 @@ const events = new Vuex.Store({
                     'summary': payload.title,
                     'description': payload.text,
                     'start': {
+                        'dateTime': payload.date,
                         'timeZone': 'UTC+03:00'
                     },
                     'end': {
+                        'dateTime': payload.date,
                         'timeZone': 'UTC+03:00'
                     },
                 };
@@ -134,6 +136,7 @@ const events = new Vuex.Store({
                         if (elem.id === payload.id) {
                             elem.title = payload.title;
                             elem.text = payload.text;
+                            elem.date = payload.date;
                         }
                     })
                 })
@@ -143,6 +146,7 @@ const events = new Vuex.Store({
                         if (elem.id === response.data.id) {
                             elem.title = payload.title;
                             elem.text = payload.text;
+                            elem.date = payload.date;
                         }
                     })
                 });

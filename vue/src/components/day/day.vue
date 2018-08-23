@@ -85,6 +85,7 @@
                     id: data.id,
                     title: data.title,
                     text: data.text,
+                    date: data.date
                 };
                 if(data.google){
                     event.google = true;

@@ -7,7 +7,7 @@
                 <div class="modal__header">
                     <h3 class="modal__header-title text_dark-blue">
                         <img v-show="google" src="../../assets/img/google.png" class="modal__header-img img-fluid" alt="google">
-                        {{customizeDate(date)}}
+                        {{customizeDate}}
                     </h3>
                 </div>
                 <div class="modal__body" v-if="eventType === 'create'">
@@ -26,15 +26,22 @@
                         <h4 class="modal__control-title">Название события</h4>
                         <p class="modal__control-text">{{title}}</p>
                     </div>
-                    <div class="modal__control" v-show="!eventOnEdit && text">
-                        <h4 class="modal__control-title">Описание события</h4>
-                        <p class="modal__control-text">{{text}}</p>
+                    <div class="modal__control" v-show="eventOnEdit">
+                        <label><b>Дата</b></label>
+                        <masked-input class="modal__input modal__control-item" v-model.trim="inputDate"
+                                      placeholder-char="_" mask="11-11-1111,11:11" placeholder="Дата: 12-12-2018,12:30*"/>
                     </div>
                     <div class="modal__control" v-show="eventOnEdit">
                         <label><b>Название события<span class="text_red">*</span></b></label>
                         <input v-model.trim="title" type="text" class="modal__input modal__control-item">
                         <p class="text_red modal__error" v-show="error">{{errorText}}</p>
                     </div>
+
+                    <div class="modal__control" v-show="!eventOnEdit && text">
+                        <h4 class="modal__control-title">Описание события</h4>
+                        <p class="modal__control-text">{{text}}</p>
+                    </div>
+
                     <div class="modal__control" v-show="eventOnEdit">
                         <label><b>Описание события</b></label>
                         <textarea v-model.trim="text" class="modal__textarea modal__control-item"></textarea>
@@ -62,9 +69,10 @@
 </template>
 
 <script>
+    import maskedInput from 'vue-masked-input'
     export default {
         name: "event-modal",
-
+        components: {maskedInput},
         props: {
             modalData:{
                 eventType: String,
@@ -79,20 +87,27 @@
             }
         },
         mounted(){
-            this.date = this.$moment(this.modalData.date).format()
+            this.date = this.$moment(this.modalData.date).format();
+            this.inputDate = this.$moment(this.date).format(this.inputDateFormat);
+        },
+        computed:{
+            customizeDate() {
+                return this.$moment(this.date).format("DD MMMM YYYY, LT")
+            },
         },
         data() {
             return {
                 date: '',
+                inputDate:'',
                 id: this.modalData.dayData.id,
                 eventType: this.modalData.eventType,
                 title: this.modalData.dayData.title,
                 text: this.modalData.dayData.text,
-                dateFormat: this.modalData.dateFormat,
                 google: this.modalData.dayData.google,
                 eventOnEdit: false,
                 error: false,
-                errorText: 'Название не должно быть пустым'
+                errorText: 'Название не должно быть пустым',
+                inputDateFormat: 'DD-MM-YYYY,LT'
             }
         },
         methods: {
@@ -117,8 +132,10 @@
             editEvent: function () {
                 if (this.validate()) {
                     this.eventOnEdit = !this.eventOnEdit;
+                    this.date = this.$moment(this.inputDate, this.inputDateFormat).format();
                     this.$emit('editEvent', {
                         id: this.id,
+                        date: this.date,
                         title: this.title,
                         text: this.text,
                         google: this.google
@@ -129,15 +146,16 @@
                 this.close();
                 this.$emit('deleteEvent', this.id);
             },
-            customizeDate(date) {
-                return this.$moment(date).format("DD MMMM YYYY, LT")
-            },
+
             validate() {
                 if (!this.title) {
                     this.error = true;
                     setTimeout(() => {
                         this.error = false;
                     }, 2000);
+                    return false;
+                }
+                if(!this.$moment(this.inputDate, this.inputDateFormat).isValid()){
                     return false;
                 }
                 this.error = false;

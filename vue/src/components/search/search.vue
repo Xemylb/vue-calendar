@@ -39,7 +39,10 @@
             filter(){
                 if(this.search){
                     this.filtredEvents = this.events.filter((event) => {
-                        return event.title.toLowerCase().match(this.search.toLowerCase());
+                        if(event.title){
+                            return event.title.toLowerCase().match(this.search.toLowerCase());
+                        }
+
                     })
                 }else{
                     this.filtredEvents = '';
