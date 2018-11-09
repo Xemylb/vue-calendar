@@ -7,7 +7,7 @@
 
 
 <script>
-    import './api.js';
+    // import './api.js';
     const CLIENT_ID = '460760836805-h6kbhuu5e67i74q06f5dcls6iqk5t0mq.apps.googleusercontent.com';
     const API_KEY = 'AIzaSyBr2nuXusTent3NfhXBIeTk15YP6i0WvoA';
     const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];

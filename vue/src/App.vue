@@ -5,6 +5,7 @@
         </main>
         <vue-particles color="#dedede"></vue-particles>
     </div>
+
 </template>
 
 <script>
